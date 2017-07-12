@@ -1,12 +1,24 @@
 import React from "react";
 import {FontIcon, RaisedButton} from "material-ui";
-import {googleLogin} from "../helpers/auth";
+import {loginWithGoogle} from "../helpers/auth";
 
 export default class Login extends React.Component {
 
+    constructor(props) {
+        super(props);
+
+        this.handleGoogleLogin = this.handleGoogleLogin.bind(this);
+    }
+
     handleGoogleLogin() {
-        console.log("Google Login");
-        googleLogin()
+        loginWithGoogle()
+            .then(function () {
+                this.props.history.push("/app/home");
+            }.bind(this))
+            .catch(function (error) {
+                // show toast for failure and stay on the same page
+                console.error("login failure.", error);
+            });
     }
 
     render() {

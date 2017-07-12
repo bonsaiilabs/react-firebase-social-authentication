@@ -8,6 +8,7 @@ import {Redirect, Route, Router} from "react-router";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import createBrowserHistory from "history/createBrowserHistory";
 import Login from "./features/Login";
+import Home from "./features/Home";
 
 
 const muiTheme = getMuiTheme({
@@ -25,6 +26,7 @@ const Root = () => (
         <Router history={customHistory}>
             <div>
                 <Route path="/login" component={Login}/>
+                <Route path="/app/home" component={Home}/>
                 <Redirect from="/" to="/login"/>
             </div>
         </Router>
