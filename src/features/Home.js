@@ -7,7 +7,7 @@ export default class Home extends React.Component {
         super(props);
 
         this.state = {
-            firebaseUser: JSON.parse(localStorage.getItem("firebaseUser"))
+            //firebaseUser: JSON.parse(localStorage.getItem("firebaseUser"))
         };
 
         //console.log("User:", this.state.firebaseUser);
@@ -16,17 +16,19 @@ export default class Home extends React.Component {
 
     handleLogout() {
         logout().then(function () {
-            localStorage.removeItem("firebaseUser");
-        });
-        this.props.history.push("/login");
+            //localStorage.removeItem("firebaseUser");
+            this.props.history.push("/login");
+            console.log("user signed out from firebase");
+        }.bind(this));
+
     }
 
     render() {
         return (
             <div>
                 <h1>Home</h1>
-                <h3>Welcome {this.state.firebaseUser.user.displayName}</h3>
-                <Avatar src={this.state.firebaseUser.user.photoURL}/>
+                <h3>Welcome</h3>
+                {/*<Avatar src={this.state.firebaseUser.user.photoURL}/>*/}
 
                 <div>
                     <RaisedButton

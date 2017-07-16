@@ -1,7 +1,9 @@
 import {firebaseAuth, googleProvider} from "../config/constants";
 
 export function loginWithGoogle() {
-    firebaseAuth().signInWithRedirect(googleProvider);
+    firebaseAuth().signInWithRedirect(googleProvider).catch(function(error){
+        alert(error);
+    });
     //return authenticate(loginWithFirebase(googleProvider));
 }
 
@@ -23,7 +25,7 @@ function authenticate(promise) {
             var email = error.email;
             // The firebase.auth.AuthCredential type that was used.
             var credential = error.credential;
-            console.log("failed firebase login", error);
+            alert("failed firebase login" + error);
             return Promise.reject("err");
         });
 }

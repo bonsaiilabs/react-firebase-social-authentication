@@ -3,32 +3,11 @@ import {FontIcon, RaisedButton} from "material-ui";
 import {loginWithGoogle} from "../helpers/auth";
 import {firebaseAuth} from "../config/constants";
 
-firebaseAuth().getRedirectResult().then(function(result) {
-    console.log("GoogleLogin Redirect result");
-    if (result.credential) {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        var token = result.credential.accessToken;
-        // ...
-    }
-    // The signed-in user info.
-    var user = result.user;
-    console.log("user:", JSON.stringify(user));
-}).catch(function(error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    // The email of the user's account used.
-    var email = error.email;
-    // The firebase.auth.AuthCredential type that was used.
-    var credential = error.credential;
-    // ...
-});
 
 export default class Login extends React.Component {
 
     constructor(props) {
         super(props);
-
         this.handleGoogleLogin = this.handleGoogleLogin.bind(this);
     }
 
@@ -41,10 +20,42 @@ export default class Login extends React.Component {
                 // show toast for failure and stay on the same page
                 console.error("login failure.", error);
             })*/;
-
-
-
     }
+     componentWillMount() {
+/*         firebaseAuth().getRedirectResult().then(function(result) {
+             if (result.user) {
+                 console.log("GoogleLogin Redirect result");
+                 if (result.credential) {
+                     // This gives you a Google Access Token. You can use it to access the Google API.
+                     let token = result.credential.accessToken;
+                     // ...
+                 }
+                 // The signed-in user info.
+                 let user = result.user;
+                 console.log("user:", JSON.stringify(user));
+             }
+         }).catch(function(error) {
+             // Handle Errors here.
+             var errorCode = error.code;
+             var errorMessage = error.message;
+             // The email of the user's account used.
+             var email = error.email;
+             // The firebase.auth.AuthCredential type that was used.
+             var credential = error.credential;
+             // ...
+             alert(error);
+         })*/;
+
+         firebaseAuth().onAuthStateChanged(user => {
+             if(user) {
+                 console.log("User signed in: ", JSON.stringify(user));
+
+                 // store the token
+                 this.props.history.push("/app/home")
+             }
+         });
+
+     }
 
     render() {
         const iconStyles = {
