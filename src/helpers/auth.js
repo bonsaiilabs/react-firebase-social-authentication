@@ -1,9 +1,7 @@
 import {firebaseAuth, googleProvider} from "../config/constants";
 
 export function loginWithGoogle() {
-    firebaseAuth().signInWithRedirect(googleProvider).catch(function(error){
-        alert(error);
-    });
+    return firebaseAuth().signInWithRedirect(googleProvider);
     //return authenticate(loginWithFirebase(googleProvider));
 }
 
